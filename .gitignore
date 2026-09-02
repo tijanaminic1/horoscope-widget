@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+scripts/.env
+scripts/config.json
+scripts/natal_chart.json
+scripts/horoscope_cache.json
