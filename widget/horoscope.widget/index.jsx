@@ -10,8 +10,8 @@ export const refreshFrequency = 60 * 60 * 1000; // hourly
 export const className = `
   top: 40px;
   right: 40px;
+  bottom: 140px;
   width: 340px;
-  max-height: 90vh;
   overflow-y: auto;
   padding: 16px 18px;
   background: rgba(18, 14, 30, 0.86);
