@@ -113,11 +113,12 @@ def get_horoscope_bullets(natal_summary, aspects, transit_houses):
 
     message = client.messages.create(
         model=MODEL,
-        max_tokens=500,
+        max_tokens=800,
         messages=[{"role": "user", "content": prompt}],
     )
     text = "".join(block.text for block in message.content if block.type == "text")
     bullets = [line.strip("-• ").strip() for line in text.strip().splitlines() if line.strip()]
 
-    _save_cache({"date": today, "signature": sig, "bullets": bullets})
+    if bullets:
+        _save_cache({"date": today, "signature": sig, "bullets": bullets})
     return bullets, False
