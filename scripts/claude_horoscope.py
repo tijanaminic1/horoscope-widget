@@ -113,11 +113,16 @@ def get_horoscope_bullets(natal_summary, aspects, transit_houses):
 
     message = client.messages.create(
         model=MODEL,
-        max_tokens=800,
+        max_tokens=1500,
         messages=[{"role": "user", "content": prompt}],
     )
     text = "".join(block.text for block in message.content if block.type == "text")
     bullets = [line.strip("-• ").strip() for line in text.strip().splitlines() if line.strip()]
+
+    if message.stop_reason == "max_tokens" and bullets:
+        # The last bullet may have been cut off mid-sentence; drop it rather
+        # than cache a fragment.
+        bullets = bullets[:-1]
 
     if bullets:
         _save_cache({"date": today, "signature": sig, "bullets": bullets})
